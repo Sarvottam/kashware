@@ -6,7 +6,8 @@
   "scripts": {
     "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
     "start": "node index.js",
-    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000"
+    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000",
+    "lint":"eslint ./"
   },
   "keywords": [
     "kashware"

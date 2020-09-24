@@ -1,8 +1,9 @@
-var express = require("express");
-var router = express.Router();
-const {imageServiceController} = require("../controllers")
-const {checkLoggedIn} = require("../utils/authMiddleware")
+const express = require('express');
 
-router.get("/getThumbnail",checkLoggedIn, imageServiceController.getThumbnail);
+const router = express.Router();
+const { imageServiceController } = require('../controllers');
+const { checkLoggedIn } = require('../utils/authMiddleware');
 
-module.exports = router
+router.get('/getThumbnail', checkLoggedIn, imageServiceController.getThumbnail);
+
+module.exports = router;

@@ -1,8 +1,9 @@
-var express = require("express");
-var router = express.Router();
-const {objectServiceController} = require("../controllers")
-const {checkLoggedIn} = require("../utils/authMiddleware")
+const express = require('express');
 
-router.patch("/patchRequest", checkLoggedIn,objectServiceController.modifyRequest);
+const router = express.Router();
+const { objectServiceController } = require('../controllers');
+const { checkLoggedIn } = require('../utils/authMiddleware');
 
-module.exports = router
+router.patch('/patchRequest', checkLoggedIn, objectServiceController.modifyRequest);
+
+module.exports = router;
