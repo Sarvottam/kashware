@@ -7,14 +7,14 @@ module.exports = {
         let { imageURL = "" } = req.body;
         try {
             let isValidImageURl = await isImageURL(imageURL)
-            console.log("data ///////  ",isValidImageURl)
+            _logger.info("valid Image URL ",isValidImageURl)
             if(!isValidImageURl){
                 throw("not a valid Image URl")
             }
             const thumbnail = await imageThumbnail({ uri: imageURL }, { width: THUMBNAIL.WIDTH, height: THUMBNAIL.HEIGHT });
             res.send(thumbnail);
         } catch (e) {
-            console.log("Errror  ",e)
+            _logger.error("error getting thumbnail ",e)
             return _handleResponse(req, res, e);
         }
     }

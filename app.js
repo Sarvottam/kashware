@@ -35,7 +35,8 @@ class Server {
         const host = process.env.NODE_ENV == "dev" ? process.env.NODE_SERVER_LOCAL : process.env.NODE_SERVER_HOST_PROD || '0.0.0.0';
 
         this.http.listen(port, host, () => {
-            console.log(`Listening on http://${host}:${port}`);
+            _logger.info(`Listening on http://${host}:${port}`)
+            // console.log(`Listening on http://${host}:${port}`);
         });
 
         this.includeRoutes();

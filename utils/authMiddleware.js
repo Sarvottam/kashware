@@ -5,9 +5,10 @@ module.exports = {
     generateJWT(payloadDataObj) {
         try {
             console.log(JSON.stringify(payloadDataObj));
+            logger.debug("JWT payloadData ",payloadDataObj)
             return JWT.sign({ exp: Math.floor(Date.now() / 1000) + 24 * (60 * 60), data: payloadDataObj }, JWT_PRIVATE_KEY);
         } catch (e) {
-            console.log("ERROR :generateJWT", e)
+            _logger.error("Error generating JWT  ",e)
             throw new Error(e)
         }
     },
@@ -19,9 +20,10 @@ module.exports = {
             if (exp < Date.now().valueOf() / 1000) {
                 throw ("JWT Token expired")
             }
+            _logger.debug("user data from jwt ",data)
             return data;
         } catch (e) {
-            console.log("HTTP req  verify jwt Error here ", e)
+            _logger.error("JWT verification error ",e)
             return _handleResponse(req, res, e);
         }
     },
@@ -34,6 +36,7 @@ module.exports = {
             req.user = user;
             next()
         } catch (error) {
+            _logger.error("check loggedIn user ",error)
             throw(error);
         }
     }

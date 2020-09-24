@@ -4,13 +4,17 @@ const cors = require('cors');
 const express = require('express');
 const ExpressConfigModule = require('./expressConfig');
 const {verifyJWT} = require("../utils/authMiddleware")
+const pino = require('pino');
+const expressPino = require('express-pino-logger');
 
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const expressLogger = expressPino({ logger });
 class AppConfig {
   constructor(app) {
+    global._logger = logger
     process.on('unhandledRejection', (reason, p) => {
-      console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
-
-      // application specific logging, throwing an error, or other logic here
+      _logger.error(reason)
+      // console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
     });
     this.app = app;
   }
@@ -24,12 +28,13 @@ class AppConfig {
     this.app.use(
       bodyParser.json(),
       bodyParser.urlencoded({ extended: true }),
+      expressLogger
     );
     this.app.use(
       express.static(__dirname + '/public'),
       cors(),
     );
-
+    
     require("../responseHandler");
     this.app.use(async (req, res, next) => {
       if (req.headers['authorization']) {

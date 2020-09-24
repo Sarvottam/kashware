@@ -4,6 +4,7 @@ module.exports = {
   login: async (req, res) => {
     let { userName, password } = req.body;
     try {
+      _logger.debug("userNameinfo",userName)
       if (!userName || userName.length > 30 ) {
         throw "userName missing or invalid";
       }
@@ -14,7 +15,7 @@ module.exports = {
       let jwtToken = await generateJWT({ userName });
       return _handleResponse(req, res, null, { jwtToken});
     } catch (e) {
-      console.log("Error login :: ", e);
+      _logger.error("Error in login  ",e)
       return _handleResponse(req, res, e);
     }
   }

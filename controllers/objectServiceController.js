@@ -11,9 +11,10 @@ module.exports = {
         throw "patchObject missing or invalid";
       }
       let data = jsonpatch.apply(reqObject,patchObject);
+      logger.debug("image thumbnail data ",data)
       return _handleResponse(req, res, null, { data});
     } catch (e) {
-      console.log("Error modifyRequest :: ", e);
+      _logger.error("Error modifying request  ",e)
       return _handleResponse(req, res, e);
     }
   }
