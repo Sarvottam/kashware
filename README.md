@@ -16,3 +16,6 @@ Create a docker image by running
 
 Run Docker image by command
 > sudo docker run --publish 5555:5555 --name auth authmicroservice:1.0
+
+## Run by pulling image from docker hub
+> docker pull patel512/authmicroservice:latest
