@@ -7,5 +7,12 @@ A backend microservice   for auth and image resizing
 3. npm start
 
 
-## ** Steps to run test cases **
+## Steps to run test cases 
 > npm run test
+
+## Run through Dockerfile
+Create a docker image by running
+>docker build --tag authmicroservice:1.0 .
+
+Run Docker image by command
+> sudo docker run --publish 5555:5555 --name auth authmicroservice:1.0
